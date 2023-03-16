@@ -4,29 +4,17 @@ using UnityEngine;
 
 public class TestCube : MonoBehaviour
 {
-    Rigidbody rb;
-    void Start()
+    
+
+    void FixedUpdate()
     {
-        rb = GetComponent<Rigidbody>();
+        transform.position += transform.forward * 1.5f * Time.fixedDeltaTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void NextGameButton()
     {
         
+        //SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            //rb.AddForce(transform.up * 50f);
-            gameObject.SetActive(false);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Her Cube: "+other.gameObject.name);
-    }
 }

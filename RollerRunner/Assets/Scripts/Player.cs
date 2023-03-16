@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _speed = 1.0f;
-    private int hammerSize = 0;
+    [SerializeField] private float _speed = 1.8f;
+    public int hammerSize = 0;
     private bool _isPieDedection = false;
     private int _score = 0;
+    public bool isGameOver;
+    public bool isFinish;
     [SerializeField] private Transform _finisPointTransform;
     float finisDistance;
     private float _pointDistancePercentage;
@@ -20,6 +23,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        isGameOver = false;
+        isFinish = false;
         finisDistance = GetDistance();
         _pointDistancePercentage = (2 * finisDistance) / 100;
         _distancePercentageDif = finisDistance - _pointDistancePercentage;
@@ -56,7 +61,7 @@ public class Player : MonoBehaviour
         {
             if(hammerSize <= 0)
             {
-                Debug.Log("Game Over");
+                isGameOver = true;
             }
             else
             {
@@ -70,6 +75,21 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        else if (collision.gameObject.CompareTag("Finish"))
+        {
+            isFinish = true;
+        }
+        else if (collision.gameObject.CompareTag("Respawn"))
+        {
+            _speed = 1.7f;
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("EditorOnly"))
+        {
+            _speed = 2.0f;
+            Destroy(collision.gameObject);
+
+        }
     }
 
     private void ChangeIsPieDedection()
@@ -82,4 +102,5 @@ public class Player : MonoBehaviour
         finisDistance = Vector3.Distance(transform.position, _finisPointTransform.transform.position);
         return finisDistance;
     }
+
 }

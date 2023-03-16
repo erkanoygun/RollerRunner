@@ -8,7 +8,7 @@ public class RollerController : MonoBehaviour
     Vector3 rot;
     private Touch _touch;
     private Quaternion _rotationY;
-    [SerializeField] private float _rotateSpeed = 0.1f;
+    [SerializeField] private float _rotateSpeed = 0.2f;
 
     void Update()
     {
